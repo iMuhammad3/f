@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema(
             default: 0,
         },
         // sample: [ 1min : { speeds: [{impossible: 1 }, { medium: 5 }, { easy: 12 } ] }, 30secs: { speed: [{impossible: 0 }, { medium: 2 }, { easy: 4 } ]} }
-        scores: {
+        highest_scores: {
             type: Map,
             of: scoreSchema,
             default: {
