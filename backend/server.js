@@ -14,7 +14,6 @@ app.use(express.urlencoded());
 app.use(cookieParser())
 
 // Routes
-app.get('/', (req, res) => res.send("hi"))
 app.use('/api/auth', authRoutes);
 
 app.listen(process.env.PORT, () => {
