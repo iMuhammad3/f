@@ -13,6 +13,7 @@ export default {
   daisyui: {
 		themes: [
 			"corporate",
+      "nord",
       "night"
 		]
 	},
