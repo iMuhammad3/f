@@ -29,12 +29,12 @@ const userSchema = new mongoose.Schema(
         profileImg: {
             type: String,
             default:
-                "https://res.cloudinary.com/dyfmhplwz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1723910689/blank-profile-2_p1imjt.png",
+                "https://res.cloudinary.com/dyfmhplwz/image/upload/v1724084732/blank-profile-2_gnvfok.png",
         },
         whacImg: {
             type: String,
             default:
-                "https://res.cloudinary.com/dyfmhplwz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1723910689/blank-profile-2_p1imjt.png",
+                "https://res.cloudinary.com/dyfmhplwz/image/upload/v1723910689/blank-profile-2_p1imjt.png",
         },
         currentStreak: {
             type: Number,

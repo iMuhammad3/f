@@ -8,6 +8,7 @@ import Leaderboard from "./pages/Leaderboard";
 import useUser from "./hooks/useUser";
 import ProtectedLayout from "./components/ProtectedLayout";
 import Home from "./pages/Home";
+import Loader from "./components/Loader"
 
 const router = createBrowserRouter([
     {
@@ -30,11 +31,7 @@ const App = () => {
     const { isLoading } = useUser();
 
     if (isLoading) {
-        return (
-            <div className="h-screen flex justify-center items-center">
-                <div className="loading loading-bars w-60"></div>
-            </div>
-        );
+        return <Loader />
     }
 
     return <RouterProvider router={router} />
