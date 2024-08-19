@@ -32,6 +32,11 @@ export const signup = async (req, res) => {
                 .status(400)
                 .json({ error: "Username or Password fields cannot be blank" });
         }
+        if (username.match(' ')) {
+            return res
+                .status(400)
+                .json({ error: "Username should not contain spaces." });
+        }
         const existingUser = await User.findOne({ username });
         if (existingUser) {
             return res.status(400).json({ error: "Username already exist" });
