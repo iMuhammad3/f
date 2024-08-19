@@ -1,4 +1,9 @@
+/* eslint-disable react/prop-types */
+import { useQuery } from "@tanstack/react-query";
+
 const Chat = () => {
+	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
+
     return (
         <div className="flex-1 m-10 mockup-window bg-base-300 border">
             <div className="bg-base-200 px-8 py-16">
@@ -6,7 +11,7 @@ const Chat = () => {
                 <div className="chat-image avatar">
                     <Img
                         url={
-                            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                            authUser.profileImg || "https://res.cloudinary.com/dyfmhplwz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1723910689/blank-profile-2_p1imjt.png"
                         }
                     />
                 </div>
@@ -17,7 +22,7 @@ const Chat = () => {
                     <div className="w-10 rounded-full">
                         <Img
                             url={
-                                "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                "https://res.cloudinary.com/dyfmhplwz/image/upload/v1724002030/cd5b5058-8a1e-47be-99f4-b47abac20cc3_jtgjq7.jpg"
                             }
                         />
                     </div>
@@ -29,7 +34,7 @@ const Chat = () => {
                     <div className="w-10 rounded-full">
                         <Img
                             url={
-                                "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                "https://res.cloudinary.com/dyfmhplwz/image/upload/v1724002030/cd5b5058-8a1e-47be-99f4-b47abac20cc3_jtgjq7.jpg"
                             }
                         />
                     </div>

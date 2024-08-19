@@ -1,4 +1,19 @@
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+    const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+      });
+      navigate('/login'); // Redirect to login page after logout
+    } catch (error) {
+      console.error('Logout failed:', error);
+      // Handle logout errors here
+    }
+  };
     return (
         <div className="drawer">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -41,7 +56,7 @@ const Navbar = () => {
                             <li>
                                 <a href="/settings">Settings</a>
                             </li>
-                            <li>
+                            <li onClick={handleLogout}>
                                 <a>Log out</a>
                             </li>
                             <label className="swap swap-rotate">
@@ -54,7 +69,7 @@ const Navbar = () => {
 
                                 {/* sun icon */}
                                 <svg
-                                    className="swap-off h-10 w-10 fill-current"
+                                    className="swap-off h-7 w-7 fill-current"
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
                                 >
@@ -63,7 +78,7 @@ const Navbar = () => {
 
                                 {/* moon icon */}
                                 <svg
-                                    className="swap-on h-10 w-10 fill-current"
+                                    className="swap-on h-7 w-7 fill-current"
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
                                 >
@@ -91,7 +106,7 @@ const Navbar = () => {
                     <li>
                         <a href="preferences">Preferences</a>
                     </li>
-                    <li>
+                    <li onClick={handleLogout}>
                         <a>Log out</a>
                     </li>
                 </ul>
