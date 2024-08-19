@@ -1,17 +1,5 @@
 import mongoose from "mongoose";
 
-const difficultiesSchema = new mongoose.Schema({
-    easy: { type: Number, default: 0 },
-    medium: { type: Number, default: 0 },
-    hard: { type: Number, default: 0 },
-});
-
-const scoreSchema = new mongoose.Schema({
-    speeds: {
-        type: [difficultiesSchema],
-    },
-});
-
 const userSchema = new mongoose.Schema(
     {
         username: {
@@ -40,7 +28,13 @@ const userSchema = new mongoose.Schema(
         ],
         profileImg: {
             type: String,
-            default: "https://res.cloudinary.com/dyfmhplwz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1723910689/blank-profile-2_p1imjt.png",
+            default:
+                "https://res.cloudinary.com/dyfmhplwz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1723910689/blank-profile-2_p1imjt.png",
+        },
+        whac_img: {
+            type: String,
+            default:
+                "https://res.cloudinary.com/dyfmhplwz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1723910689/blank-profile-2_p1imjt.png",
         },
         current_streak: {
             type: Number,
@@ -50,18 +44,13 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
-        // sample: [ 1min : { speeds: [{impossible: 1 }, { medium: 5 }, { easy: 12 } ] }, 30secs: { speed: [{impossible: 0 }, { medium: 2 }, { easy: 4 } ]} }
-        highest_scores: {
-            type: Map,
-            of: scoreSchema,
-            default: {
-                "1min": {
-                    difficulties: [{ impossible: 0 }, { medium: 0 }, { easy: 0 }],
-                },
-                "30secs": {
-                    difficulties: [{ impossible: 0 }, { medium: 0 }, { easy: 0 }],
-                },
-            },
+        theme: {
+            type: String,
+            default: "night",
+        },
+        difficulty: {
+            type: String,
+            default: "easy",
         },
     },
     { timestamps: true }
