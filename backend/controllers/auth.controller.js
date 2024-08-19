@@ -32,10 +32,15 @@ export const signup = async (req, res) => {
                 .status(400)
                 .json({ error: "Username or Password fields cannot be blank" });
         }
-        if (username.match(' ')) {
+        if (username.match(" ")) {
             return res
                 .status(400)
                 .json({ error: "Username should not contain spaces." });
+        }
+        if (username.length < 4) {
+            return res
+                .status(400)
+                .json({ error: "Username must be at least 4 characters long" });
         }
         const existingUser = await User.findOne({ username });
         if (existingUser) {
@@ -66,10 +71,10 @@ export const logout = async (req, res) => {
 
 export const getMe = async (req, res) => {
     try {
-		const user = await User.findById(req.user._id).select("-password");
-		res.status(200).json(user);
-	} catch (error) {
-		console.log("Error in getMe controller", error.message);
-		res.status(500).json({ error: "Internal Server Error" });
-	}
+        const user = await User.findById(req.user._id).select("-password");
+        res.status(200).json(user);
+    } catch (error) {
+        console.log("Error in getMe controller", error.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 };
