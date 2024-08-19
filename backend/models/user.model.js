@@ -31,16 +31,16 @@ const userSchema = new mongoose.Schema(
             default:
                 "https://res.cloudinary.com/dyfmhplwz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1723910689/blank-profile-2_p1imjt.png",
         },
-        whac_img: {
+        whacImg: {
             type: String,
             default:
                 "https://res.cloudinary.com/dyfmhplwz/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1723910689/blank-profile-2_p1imjt.png",
         },
-        current_streak: {
+        currentStreak: {
             type: Number,
             default: 0,
         },
-        longest_streak: {
+        longestStreak: {
             type: Number,
             default: 0,
         },
