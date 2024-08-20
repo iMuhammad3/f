@@ -29,12 +29,12 @@ const userSchema = new mongoose.Schema(
         profileImg: {
             type: String,
             default:
-                "https://res.cloudinary.com/dyfmhplwz/image/upload/v1724084732/blank-profile-2_gnvfok.png",
+                "https://res.cloudinary.com/dyfmhplwz/image/upload/v1724153805/blank-profile-2_zspxmn.png",
         },
         whacImg: {
             type: String,
             default:
-                "https://res.cloudinary.com/dyfmhplwz/image/upload/v1723910689/blank-profile-2_p1imjt.png",
+                "https://res.cloudinary.com/dyfmhplwz/image/upload/v1724001654/messi_lo8hct.jpg",
         },
         currentStreak: {
             type: Number,
@@ -52,6 +52,9 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: "easy",
         },
+        lastPlayedDate: {
+            type: Date
+        }
     },
     { timestamps: true }
 );
