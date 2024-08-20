@@ -1,8 +1,6 @@
-import messi from '../assets/messi.png'
 
 // eslint-disable-next-line react/prop-types
-export const Square = ({ onClick, hasImage, file }) => {
-    const image = file ? URL.createObjectURL(file) : messi
+export const Square = ({ onClick, hasImage, image }) => {
     const style = {
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",

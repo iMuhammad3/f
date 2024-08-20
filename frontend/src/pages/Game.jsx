@@ -1,36 +1,36 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Square } from "../components/Square";
+import useUser from "../hooks/useUser";
 
 const Game = () => {
+    const { data: user } = useUser();
+    const { difficulty, whacImg } = user;
+
     const [score, setScore] = useState(0);
     const [time, setTime] = useState(30);
-    const [squares, setSquares] = useState(
-        Array(9)
-            .fill({hasImage: false})
-        );
-    const [file, setFile] = useState(null);
+    const [squares, setSquares] = useState(Array(9).fill({ hasImage: false }));
     const [gameActive, setGameActive] = useState(false);
-    const [difficulty, setDifficulty] = useState("easy");
-    const [speed, setSpeed] = useState(600);
 
     const startGame = () => {
         // to avoid bugs when user spams the start button
         if (gameActive) return;
         setTime(30);
         setScore(0);
-        setGameActive(true);
 
+        let speed;
         switch (difficulty) {
             case "easy":
-                setSpeed(600);
+                speed = 700;
                 break;
             case "medium":
-                setSpeed(400);
+                speed = 400;
                 break;
             case "hard":
-                setSpeed(200);
+                speed = 200;
                 break;
+            default:
+                speed = 700;
         }
 
         const countDownId = setInterval(() => {
@@ -55,7 +55,8 @@ const Game = () => {
                 return newSquares;
             });
         }, speed);
-    }
+        setGameActive(true);
+    };
 
     const handleClick = index => {
         if (gameActive && squares[index].hasImage) {
@@ -77,13 +78,17 @@ const Game = () => {
                             <Square
                                 key={i}
                                 hasImage={square.hasImage}
-                                file={file}
+                                image={whacImg}
                                 onClick={() => handleClick(i)}
                             />
                         );
                     })}
                 </ul>
-                <button onClick={startGame} className="btn">
+                <button
+                    disabled={gameActive}
+                    onClick={startGame}
+                    className="btn btn-primary "
+                >
                     Start
                 </button>
             </div>
