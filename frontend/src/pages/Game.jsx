@@ -5,7 +5,7 @@ import useUser from "../hooks/useUser";
 
 const Game = () => {
     const { data: user } = useUser();
-    const { difficulty, whacImg } = user;
+    const { difficulty, whacImg, currentStreak, longestStreak } = user;
 
     const [score, setScore] = useState(0);
     const [time, setTime] = useState(30);
@@ -15,6 +15,7 @@ const Game = () => {
     const startGame = () => {
         // to avoid bugs when user spams the start button
         if (gameActive) return;
+        checkStreak();
         setTime(30);
         setScore(0);
 
@@ -65,13 +66,15 @@ const Game = () => {
     };
 
     return (
-        <div>
+        <div className="flex flex-col">
             <Navbar />
-            <div className="flex flex-col items-center mt-10">
-                <section className="flex flex-col md:flex-row justify-between gap-2 md:w-[450px] border rounded p-2">
-                    <h2>Time Left: {time}</h2>
+            <section className="flex m-4 justify-between gap-2 border rounded p-2">
                     <h2>Score: {score}</h2>
+                    <h2>Time Left: {time}</h2>
+                    <h2>Current streak: {currentStreak}</h2>
+                    <h2>Longest streak: {longestStreak}</h2>
                 </section>
+            <div className="flex flex-col items-center gap-4 mt-10">
                 <ul className="grid grid-cols-3 w-full md:w-[450px] aspect-square border">
                     {squares.map((square, i) => {
                         return (
@@ -95,5 +98,11 @@ const Game = () => {
         </div>
     );
 };
+
+const checkStreak = async () => {
+    await fetch("api/user/streak", {
+        method: "POST", 
+    })
+}
 
 export default Game;

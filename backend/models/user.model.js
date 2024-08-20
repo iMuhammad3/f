@@ -12,20 +12,6 @@ const userSchema = new mongoose.Schema(
             required: true,
             minLength: 6,
         },
-        followers: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User",
-                default: [],
-            },
-        ],
-        following: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User",
-                default: [],
-            },
-        ],
         profileImg: {
             type: String,
             default:
@@ -52,9 +38,9 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: "easy",
         },
-        lastPlayedDate: {
+        lastPlayed: {
             type: Date
-        }
+        },
     },
     { timestamps: true }
 );

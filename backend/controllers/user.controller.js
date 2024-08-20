@@ -83,14 +83,51 @@ export const updateTheme = async (req, res) => {
     try {
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(401).json({ error: "User not found" });
+            return res.status(401).json({ error: "You're not logged in" });
         }
         await User.updateOne({ _id: userId }, { theme });
-		console.log(user.theme);
-		
+        console.log(user.theme);
+
         res.status(200).json({ message: "Theme updated" });
     } catch (error) {
         console.log("Error in updateTheme: ", error.message);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const updateStreak = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            return res.status(401).json({ error: "You're not logged in" });
+        }
+        const today = new Date()
+        today.setHours(0, 0, 0, 0);
+        
+        const lastPlayed = new Date(user.lastPlayed)
+        lastPlayed.setHours(0, 0, 0, 0);
+        if (lastPlayed === today) {
+            // Streak continues for the same day
+            return res.status(200).json({ message: "Streak for today already counted" });
+        }
+        if (lastPlayed === new Date(today).setDate(today.getDate() - 1)) {
+            // Streak continues (played yesterday)
+            user.currentStreak += 1;
+        } else {
+            // Reset the streak
+            user.currentStreak = 1;
+        }
+        // Update longest streak if current streak is higher
+        if (user.currentStreak > user.longestStreak) {
+            user.longestStreak = user.currentStreak;
+        }
+
+        // Update last played date
+        user.lastPlayed = new Date();
+        await user.save();
+        res.status(200).json({ message: "streak updated" });
+    } catch (error) {
+        console.log("Error in updateStreak: ", error.message);
         res.status(500).json({ error: error.message });
     }
 };
