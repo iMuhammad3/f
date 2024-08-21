@@ -30,10 +30,6 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
-        theme: {
-            type: String,
-            default: "night",
-        },
         difficulty: {
             type: String,
             default: "easy",
