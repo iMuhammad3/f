@@ -45,25 +45,27 @@ export const updateSettings = async (req, res) => {
             user.password = await bcrypt.hash(newPassword, 10);
         }
 
-        // if (whacImg) {
-        // 	if (user.whacImg) {
-        // 		// https://res.cloudinary.com/dyfqon1v6/image/upload/v1712997552/zmxorcxexpdbh8r0bkjb.png
-        // 		await cloudinary.uploader.destroy(user.whacImg.split("/").pop().split(".")[0]);
-        // 	}
+        const extractPublicId = (url) => {
+            return url.split("/").pop().split(".")[0];
+        };
 
-        // 	const uploadedResponse = await cloudinary.uploader.upload(whacImg);
-        // 	whacImg = uploadedResponse.secure_url;
+        if (whacImg) {
+            if (user.whacImg) {
+                const whacImgPublicId = extractPublicId(user.whacImg);
+                await cloudinary.uploader.destroy(whacImgPublicId);
+            }
+            const uploadedResponse = await cloudinary.uploader.upload(whacImg);
+            whacImg = uploadedResponse.secure_url;
+        }
 
-        // }
-        // if (profileImg) {
-        // 	if (user.profileImg) {
-        // 		// https://res.cloudinary.com/dyfqon1v6/image/upload/v1712997552/zmxorcxexpdbh8r0bkjb.png
-        // 		await cloudinary.uploader.destroy(user.profileImg.split("/").pop().split(".")[0]);
-        // 	}
-
-        // 	const uploadedResponse = await cloudinary.uploader.upload(profileImg);
-        // 	profileImg = uploadedResponse.secure_url;
-        // }
+        if (profileImg) {
+            if (user.profileImg) {
+                const profileImgPublicId = extractPublicId(user.profileImg);
+                await cloudinary.uploader.destroy(profileImgPublicId);
+            }
+            const uploadedResponse = await cloudinary.uploader.upload(profileImg);
+            profileImg = uploadedResponse.secure_url;
+        }
         user.difficulty = difficulty || user.difficulty;
         user.whacImg = whacImg || user.whacImg;
         user.profileImg = profileImg || user.profileImg;

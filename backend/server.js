@@ -32,3 +32,5 @@ app.use("/api/scores", scoreRoutes);
 app.listen(process.env.PORT, () => {
     connectDB();
 });
+
+export default app;

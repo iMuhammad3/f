@@ -57,7 +57,7 @@ export const signup = async (req, res) => {
             password: hashedPassword,
         });
         generateToken(newUser._id, res);
-        res.status(200).json({ message: "Account creation successful" });
+        res.status(201).json({ message: "Account creation successful" });
     } catch (error) {
         console.log("Error in signup controller", error.message);
         res.status(500).json({ error: "Internal Server Error" });
