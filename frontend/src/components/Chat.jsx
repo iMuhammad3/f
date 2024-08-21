@@ -27,7 +27,7 @@ const Chat = () => {
                         />
                     </div>
                 </div>
-                <Bubble time={getCurrentTime()} content={"I'm a backend guy! 🙄"} name={"Muhammad"} />
+                <Bubble time={getCurrentTime()} content={"🙄"} name={"Muhammad"} />
             </div>
             <div className="chat chat-start">
                 <div className="chat-image avatar">
@@ -63,7 +63,7 @@ const Bubble = ({content, time, name}) => {
                 <time className="text-xs opacity-50 mx-2">{time}</time>
             </div>
             <div className="chat-bubble">{content}</div>
-            <div className="chat-footer opacity-50">{name === 'You' ? 'Delivered' : `Seen at ${time}`}</div>
+            <div className="chat-footer opacity-50">{name === 'You' ? `Seen at ${time}`  : undefined}</div>
         </>
     );
 };
