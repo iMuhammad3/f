@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "night");
 
     const handleLogout = async () => {
         try {
@@ -13,17 +15,12 @@ const Navbar = () => {
             console.error("Logout failed:", error);
         }
     };
-    const handleChange = async (e) => {
-        let theme = e.target.value ? "nord" : "night"
-        try {
-            const res = await fetch("api/user/theme", {
-                method: "PUT",
-                body: JSON.stringify({ theme }),
-            });
-            console.log(await res.json());
-        } catch (error) {
-            console.error(error);
-        }
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+    const toggleTheme = () => {
+        setTheme(theme === 'night' ? 'nord' : 'night');
     };
     return (
         <div className="drawer">
@@ -73,7 +70,7 @@ const Navbar = () => {
                             <label className="swap swap-rotate">
                                 {/* this hidden checkbox controls the state */}
                                 <input
-                                    onChange={handleChange}
+                                    onChange={toggleTheme}
                                     type="checkbox"
                                     className="theme-controller"
                                     value="nord"
