@@ -18,6 +18,7 @@ cloudinary.config({
 });
 
 const app = express();
+const __dirname = path.resolve();
 
 // Middleware
 app.use(express.json({limit: "8mb"}));
@@ -28,6 +29,14 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/scores", scoreRoutes);
+
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+	});
+}
 
 app.listen(process.env.PORT, () => {
     connectDB();
