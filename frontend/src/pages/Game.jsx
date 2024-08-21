@@ -8,7 +8,7 @@ const Game = () => {
     const { difficulty, whacImg, currentStreak, longestStreak } = user;
 
     const [score, setScore] = useState(0);
-    const [time, setTime] = useState(3);
+    const [time, setTime] = useState(30);
     const [squares, setSquares] = useState(Array(9).fill({ hasImage: false }));
     const [gameActive, setGameActive] = useState(false);
 
@@ -16,7 +16,7 @@ const Game = () => {
         // to avoid bugs when user spams the start button
         if (gameActive) return;
         checkStreak();
-        setTime(3);
+        setTime(30);
         setScore(0);
 
         let speed;
@@ -71,14 +71,14 @@ const Game = () => {
     return (
         <div className="flex flex-col">
             <Navbar />
-            <section className="flex m-4 justify-between gap-2 border rounded p-2">
+            <section className="flex m-4 justify-between gap-2 border border-primary rounded p-2">
                 <h2>Score: {score}</h2>
                 <h2>Time Left: {time}</h2>
                 <h2>Current streak: {currentStreak}</h2>
                 <h2>Longest streak: {longestStreak}</h2>
             </section>
             <div className="flex flex-col items-center gap-4 mt-10">
-                <ul className="grid grid-cols-3 w-full md:w-[450px] aspect-square border">
+                <ul className="grid grid-cols-3 w-full md:w-[450px] aspect-square border border-primary">
                     {squares.map((square, i) => {
                         return (
                             <Square

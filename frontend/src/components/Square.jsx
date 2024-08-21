@@ -10,7 +10,7 @@ export const Square = ({ onClick, hasImage, image }) => {
         <div
             style={hasImage ? style : {}}
             onClick={onClick}
-            className="w-full md:w-[150px] aspect-square border cursor-pointer"
+            className="w-full md:w-[150px] aspect-square border border-primary cursor-pointer"
         ></div>
     );
 };

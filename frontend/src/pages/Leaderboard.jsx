@@ -14,6 +14,7 @@ const Leaderboard = () => {
     };
 
     if (isLoading) return <Loader />;
+    if (scores.message) return <><Navbar /><div>No scores available</div></>
     return (
         <div>
             <Navbar />
