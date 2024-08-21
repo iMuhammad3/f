@@ -8,7 +8,7 @@ const Game = () => {
     const { difficulty, whacImg, currentStreak, longestStreak } = user;
 
     const [score, setScore] = useState(0);
-    const [time, setTime] = useState(30);
+    const [time, setTime] = useState(3);
     const [squares, setSquares] = useState(Array(9).fill({ hasImage: false }));
     const [gameActive, setGameActive] = useState(false);
 
@@ -16,7 +16,7 @@ const Game = () => {
         // to avoid bugs when user spams the start button
         if (gameActive) return;
         checkStreak();
-        setTime(30);
+        setTime(3);
         setScore(0);
 
         let speed;
@@ -39,9 +39,12 @@ const Game = () => {
                 // Ensure the countdown doesn't go below 0
                 const newTime = prevTime > 0 ? prevTime - 1 : 0;
                 if (newTime === 0) {
+                    sendScore(score, difficulty);
                     clearInterval(countDownId);
                     clearInterval(randomId);
                     setGameActive(false);
+                    console.log(score);
+                    
                 }
                 return newTime;
             });
@@ -69,11 +72,11 @@ const Game = () => {
         <div className="flex flex-col">
             <Navbar />
             <section className="flex m-4 justify-between gap-2 border rounded p-2">
-                    <h2>Score: {score}</h2>
-                    <h2>Time Left: {time}</h2>
-                    <h2>Current streak: {currentStreak}</h2>
-                    <h2>Longest streak: {longestStreak}</h2>
-                </section>
+                <h2>Score: {score}</h2>
+                <h2>Time Left: {time}</h2>
+                <h2>Current streak: {currentStreak}</h2>
+                <h2>Longest streak: {longestStreak}</h2>
+            </section>
             <div className="flex flex-col items-center gap-4 mt-10">
                 <ul className="grid grid-cols-3 w-full md:w-[450px] aspect-square border">
                     {squares.map((square, i) => {
@@ -100,9 +103,32 @@ const Game = () => {
 };
 
 const checkStreak = async () => {
-    await fetch("api/user/streak", {
-        method: "POST", 
-    })
-}
+    try {
+        await fetch("api/user/streak", {
+            method: "POST",
+        });
+    } catch (error) {
+        throw new Error(error)
+    }
+};
+
+const sendScore = async (score, difficulty) => {
+
+    try {
+        const res = await fetch("/api/scores/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                difficulty, score 
+            }),
+        });
+        console.log(await res.json());
+        
+    } catch (error) {
+        throw new Error(error);
+    }
+};
 
 export default Game;

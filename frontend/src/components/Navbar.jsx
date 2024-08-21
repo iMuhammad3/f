@@ -3,17 +3,28 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
     const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await fetch('/api/auth/logout', {
-        method: 'POST',
-      });
-      navigate('/login'); // Redirect to login page after logout
-    } catch (error) {
-      console.error('Logout failed:', error);
-      // Handle logout errors here
-    }
-  };
+    const handleLogout = async () => {
+        try {
+            await fetch("/api/auth/logout", {
+                method: "POST",
+            });
+            navigate("/login"); // Redirect to login page after logout
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+    const handleChange = async (e) => {
+        let theme = e.target.value ? "nord" : "night"
+        try {
+            const res = await fetch("api/user/theme", {
+                method: "PUT",
+                body: JSON.stringify({ theme }),
+            });
+            console.log(await res.json());
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <div className="drawer">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -62,6 +73,7 @@ const Navbar = () => {
                             <label className="swap swap-rotate">
                                 {/* this hidden checkbox controls the state */}
                                 <input
+                                    onChange={handleChange}
                                     type="checkbox"
                                     className="theme-controller"
                                     value="nord"

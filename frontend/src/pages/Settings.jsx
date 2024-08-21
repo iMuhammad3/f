@@ -13,7 +13,6 @@ const Settings = () => {
         whacImg: user.whacImg,
         profileImg: user.profileImg,
     });
-    console.log(settings);
     
 
     const { mutateAsync, isPending } = useMutation({

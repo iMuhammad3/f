@@ -6,6 +6,7 @@ import { v2 as cloudinary } from "cloudinary";
 import connectDB from "./db/connectDB.js";
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
+import scoreRoutes from "./routes/scores.route.js";
 
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.use(cookieParser());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/scores", scoreRoutes);
 
 app.listen(process.env.PORT, () => {
     connectDB();
